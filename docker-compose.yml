@@ -9,8 +9,8 @@ services:
     environment:
       # Configurações do Banco de Dados
       - DB_URL=jdbc:mysql://db:3306/hellovps?allowPublicKeyRetrieval=true&useSSL=false&createDatabaseIfNotExist=true
-      - DB_USER=root
-      - DB_PASSWORD=root
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
       # Credenciais (Recomendo colocar os valores reais em um arquivo .env local)
       - CLIENT_ID=${CLIENT_ID}
       - CLIENT_SECRET=${CLIENT_SECRET}

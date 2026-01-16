@@ -1,0 +1,41 @@
+services:
+  app:
+    build: .
+    container_name: hellovps-app
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    environment:
+      # Configurações do Banco de Dados
+      - DB_URL=jdbc:mysql://db:3306/hellovps?allowPublicKeyRetrieval=true&useSSL=false&createDatabaseIfNotExist=true
+      - DB_USER=root
+      - DB_PASSWORD=root
+      # Credenciais (Recomendo colocar os valores reais em um arquivo .env local)
+      - CLIENT_ID=${CLIENT_ID}
+      - CLIENT_SECRET=${CLIENT_SECRET}
+      - EMAIL_USERNAME=${EMAIL_USERNAME}
+      - EMAIL_PASSWORD=${EMAIL_PASSWORD}
+    networks:
+      - hellovps-network
+
+  db:
+    image: mariadb:10.11
+    container_name: hellovps-db
+    restart: always
+    environment:
+      - MARIADB_DATABASE=hellovps
+      - MARIADB_ROOT_PASSWORD=root
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - hellovps-network
+
+volumes:
+  mysql_data:
+
+networks:
+  hellovps-network:
+    driver: bridge

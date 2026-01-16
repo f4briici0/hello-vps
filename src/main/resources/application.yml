@@ -1,8 +1,14 @@
-# Spring
+# ===============================
+# SPRING SERVER
+# ===============================
 server:
   address: 0.0.0.0
   port: 8080
+  forward-headers-strategy: framework
 
+# ===============================
+# SPRING APP
+# ===============================
 spring:
   application:
     name: helloVPS
@@ -10,19 +16,25 @@ spring:
   config:
     import: optional:file:.env[.properties]
 
-# BANCO DE DADOS
+  # ===============================
+  # DATABASE
+  # ===============================
   datasource:
     url: ${DB_URL}
     username: ${DB_USER}
     password: ${DB_PASSWORD}
     driver-class-name: com.mysql.cj.jdbc.Driver
 
-# JPA
+  # ===============================
+  # JPA / HIBERNATE
+  # ===============================
   jpa:
     hibernate:
       ddl-auto: update
 
-# OAUTH2 GOOGLE
+  # ===============================
+  # OAUTH2 - GOOGLE
+  # ===============================
   security:
     oauth2:
       client:
@@ -30,11 +42,14 @@ spring:
           google:
             client-id: ${CLIENT_ID}
             client-secret: ${CLIENT_SECRET}
+            redirect-uri: "https://vps-fabricio.duckdns.org/login/oauth2/code/google"
             scope:
               - email
               - profile
 
-# EMAIL SENDER
+  # ===============================
+  # EMAIL SENDER
+  # ===============================
   mail:
     host: smtp.gmail.com
     port: 587
